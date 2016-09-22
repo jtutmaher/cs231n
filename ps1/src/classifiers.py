@@ -87,8 +87,9 @@ algorithm. Utilizes the generalized loss function for arbitrary classification.
 """
 
 class svm:
-    def __init__(self):
-        self.model = []
+    def __init__(self,featurelength,numclasses):
+        self.weights = np.random.rand(featurelength,numclasses)*0.0001
+        self.model = np.zeros((featurelength,numclasses))
         pass
 
     def __loss_i(self,x, y, W):
@@ -146,7 +147,7 @@ class svm:
         # Return
         return loss,dW
 
-    def train(self,Xtr,Ytr,learning_rate=1e-7, reg=5e4,batch_size=500,classes=10):
+    def train(self,Xtr,Ytr,learning_rate=1e-7, reg=5e4,batch_size=100,classes=10):
         """
         Train SVM linear model based on training set
         :param Xtr: 2D array (floats), training data
@@ -157,22 +158,19 @@ class svm:
         :param classes: int, num classes for SVM model
         :return: 2D array, final weight matrix "model"
         """
-        # Training size
+        # Training size and loss array initialization
         num_train = Xtr.shape[0]
-        # Random SVM weight matrix of small numbers
-        W = np.random.randn(Xtr.shape[1], classes) * 0.0001
+        Weights = np.copy(self.weights)
         loss_array = []
-        # Iterate through batches
+        # Iterate through batches - train model
         for x in range(0,num_train,batch_size):
             batch_x = Xtr[x:x+batch_size,:]
             batch_y = Ytr[x:x+batch_size]
-            # Get loss and gradient
-            loss,dW = self.loss(W,batch_x,batch_y,reg)
-            # Apply correction
+            loss,dW = self.loss(Weights,batch_x,batch_y,reg)
             loss_array.append(loss)
-            W -= learning_rate*dW
+            Weights -= learning_rate*dW
         # Store model for testing
-        self.model = W
+        self.model = Weights
         return loss_array
 
     def predict(self,X):
@@ -181,10 +179,12 @@ class svm:
         :param X: 2D array (floats), set of test/validation images
         :return: 1D array (floats), predictions
         """
-        W = self.model
-        y = X.dot(W)
+        y = X.dot(self.model)
         predict = np.argmax(y,axis=1)
         return predict
+
+    def weights(self):
+        return self.weights
 
     def accuracy(self,Ypr,Yact):
         return np.mean(Ypr==Yact)
