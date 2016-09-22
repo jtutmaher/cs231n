@@ -1,10 +1,13 @@
+"""
+------------------------------------------------------------------
+Jake Tutmaher
+September 20, 2016
+------------------------------------------------------------------
+"""
+
 import numpy as np
 
 """
---
-Jake Tutmaher
-September 20, 2016
-
 K - nearest neighbors (KNN) Class, PSET 1: CS231. KNN is a "memory
 only" approach - analogous to a lookup method for a given training
 set. Typical accuracies of 40 percent (best case).
@@ -78,45 +81,115 @@ class knn:
         num_correct = np.sum(Ypred==Yact)
         return np.divide(num_correct,float(Yact.size))
 
+"""
+Support Vector Machine class. Generalization of a binary support vector machine
+algorithm. Utilizes the generalized loss function for arbitrary classification.
+"""
+
 class svm:
     def __init__(self):
+        self.model = []
         pass
 
-    def svm_loss_naive(self,W,X,y,reg):
-        dW = np.zeros(W.shape)  # initialize the gradient as zero
+    def __loss_i(self,x, y, W):
+        """
+        Computes total loss and gradient matrix for a single training
+        note: meant as private method.
+        instance
+        :param y: float, Correct class
+        :param W: 2D array (floats), weight matrix
+        :return: float & 2D array (floats), loss for trial and gradient
+                 matrix
+        """
+        # Predictions
+        scores = x.dot(W)
+        # Loss term
+        margins = scores - scores[y] + 1
+        margins[margins < 0] = 0
+        margins[y] = 0
+        # Total loss for trial
+        loss = np.sum(margins)
+        # Corrent for single piecewise term
+        margins[margins > 0] = 1
+        # Generate gradient matrix
+        dW = np.outer(x, margins)
+        # Scaled for row corresponding to correct class
+        dW[:, y] = -np.count_nonzero(margins) * x
+        return loss, dW
 
-        # compute the loss and the gradient
-        num_classes = W.shape[1]
-        num_train = X.shape[0]
+    def loss(self,W,X,y,reg):
+        """
+        Computes total loss and gradient matrix averages for all trials
+        :param W: 2D array (floats), weight matrix
+        :param X: 2D array (floats), feature vectors for all trials
+        :param y: 1D array (floats), correct classes for all trials
+        :param reg: regularization factor for l2 correction
+        :return: float & 2D array (floats), loss and gradient matrix
+        """
+        # Get weight matrix and initialize gradients
+        dW = np.zeros(W.shape)
         loss = 0.0
+        # Iterate through training set
+        num_train = X.shape[0]
         for i in xrange(num_train):
-            scores = X[i].dot(W)
-            correct_class_score = scores[y[i]]
-            for j in xrange(num_classes):
-                if j == y[i]:
-                    continue
-                margin = scores[j] - correct_class_score + 1  # note delta = 1
-                dW[i,j] = margin
-                if margin > 0:
-                    loss += margin
-
-        # Right now the loss is a sum over all training examples, but we want it
-        # to be an average instead so we divide by num_train.
-        dW[dW<0] = 0
+            L_i, dW_i = self.__loss_i(X[i], y[i], W)
+            loss += L_i
+            dW += dW_i
+        # Average loss
         loss /= num_train
-
+        # Average gradients as well
+        dW /= num_train
         # Add regularization to the loss.
         loss += 0.5 * reg * np.sum(W * W)
+        # Add regularization to the gradient
+        dW += reg * W
+        # Return
+        return loss,dW
 
-        #############################################################################
-        # TODO:                                                                     #
-        # Compute the gradient of the loss function and store it dW.                #
-        # Rather that first computing the loss and then computing the derivative,   #
-        # it may be simpler to compute the derivative at the same time that the     #
-        # loss is being computed. As a result you may need to modify some of the    #
-        # code above to compute the gradient.                                       #
-        #############################################################################
+    def train(self,Xtr,Ytr,learning_rate=1e-7, reg=5e4,batch_size=500,classes=10):
+        """
+        Train SVM linear model based on training set
+        :param Xtr: 2D array (floats), training data
+        :param Ytr: 1D array (int), training lables
+        :param learning_rate: float, correction factor to gradient
+        :param reg: float, for l2 regularization
+        :param batch_size: int, num images for SGD
+        :param classes: int, num classes for SVM model
+        :return: 2D array, final weight matrix "model"
+        """
+        # Training size
+        num_train = Xtr.shape[0]
+        # Random SVM weight matrix of small numbers
+        W = np.random.randn(Xtr.shape[1], classes) * 0.0001
+        loss_array = []
+        # Iterate through batches
+        for x in range(0,num_train,batch_size):
+            batch_x = Xtr[x:x+batch_size,:]
+            batch_y = Ytr[x:x+batch_size]
+            # Get loss and gradient
+            loss,dW = self.loss(W,batch_x,batch_y,reg)
+            # Apply correction
+            loss_array.append(loss)
+            W -= learning_rate*dW
+        # Store model for testing
+        self.model = W
+        return loss_array
 
+    def predict(self,X):
+        """
+        Make predictions based on Current Model
+        :param X: 2D array (floats), set of test/validation images
+        :return: 1D array (floats), predictions
+        """
+        W = self.model
+        y = X.dot(W)
+        predict = np.argmax(y,axis=1)
+        return predict
 
-        return loss, dW
+    def accuracy(self,Ypr,Yact):
+        return np.mean(Ypr==Yact)
+
+    def model(self):
+        return self.model
+
 
