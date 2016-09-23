@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca5907a3-f63b-47ce-826f-be930069e837" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ps1/.ipynb_checkpoints/ps1_solutions-checkpoint.ipynb" afterPath="$PROJECT_DIR$/ps1/.ipynb_checkpoints/ps1_solutions-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ps1/cs231n/classifiers/softmax.py" afterPath="$PROJECT_DIR$/ps1/cs231n/classifiers/softmax.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ps1/ps1_solutions.ipynb" afterPath="$PROJECT_DIR$/ps1/ps1_solutions.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ps1/softmax.ipynb" afterPath="$PROJECT_DIR$/ps1/softmax.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ps1/src/classifiers.py" afterPath="$PROJECT_DIR$/ps1/src/classifiers.py" />
     </list>
     <ignored path="CS231.iws" />
@@ -27,30 +28,18 @@
       <file leaf-file-name="classifiers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ps1/src/classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-467">
-              <caret line="133" column="30" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
+            <state relative-caret-position="-1565">
+              <caret line="192" column="23" selection-start-line="192" selection-start-column="23" selection-end-line="192" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="linear_svm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ps1/cs231n/classifiers/linear_svm.py">
+      <file leaf-file-name="softmax.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ps1/cs231n/classifiers/softmax.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="k_nearest_neighbor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ps1/cs231n/classifiers/k_nearest_neighbor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-740">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="15">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="73" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -75,14 +64,16 @@
         <option value="$PROJECT_DIR$/ps1/knn.ipynb" />
         <option value="$PROJECT_DIR$/ps1/src/knn.py" />
         <option value="$PROJECT_DIR$/ps1/cs231n/classifiers/linear_svm.py" />
+        <option value="$PROJECT_DIR$/ps1/cs231n/classifiers/softmax.py" />
         <option value="$PROJECT_DIR$/ps1/src/classifiers.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="30" />
     <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="620" />
+    <option name="width" value="1294" />
+    <option name="height" value="797" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -347,10 +338,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="620" extended-state="6" />
+    <frame x="30" y="23" width="1294" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2734375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27047914" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -420,16 +411,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ps1/cs231n/classifiers/softmax.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ps1/cs231n/classifiers/k_nearest_neighbor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-740">
@@ -473,15 +454,23 @@
         <state relative-caret-position="225">
           <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ps1/cs231n/classifiers/softmax.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="73" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ps1/src/classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-467">
-          <caret line="133" column="30" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
+        <state relative-caret-position="-1565">
+          <caret line="192" column="23" selection-start-line="192" selection-start-column="23" selection-end-line="192" selection-end-column="23" />
           <folding />
         </state>
       </provider>
