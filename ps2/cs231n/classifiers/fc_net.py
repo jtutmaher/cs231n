@@ -95,7 +95,7 @@ class TwoLayerNet(object):
     if y is None:
       return scores
     
-    loss, grads = 0, {}
+    loss, grads = None,{}
     ############################################################################
     # TODO: Implement the backward pass for the two-layer net. Store the loss  #
     # in the loss variable and gradients in the grads dictionary. Compute data #
@@ -106,15 +106,23 @@ class TwoLayerNet(object):
     # automated tests, make sure that your L2 regularization includes a factor #
     # of 0.5 to simplify the expression for the gradient.                      #
     ############################################################################
-    # Softmax
-    numerator = np.exp(scores)
-    denominator = np.sum(numerator, axis=1)
-    # Divide 2d array (numerators) by 1d array (denominators)
-    ypred_softmax = numerator / denominator[:, None]
-    L_i = np.log(ypred_softmax)
     ############################################################################
     #                             END OF YOUR CODE                             #
     ############################################################################
+    #Loss
+    loss,diff = softmax_loss(scores,y)
+    loss += 0.5 * self.reg * (np.sum(W1 * W1) + np.sum(W2 * W2))
+    #Gradients
+    dx2,dW2,db2 = affine_backward(diff,cache2)
+    dx1,dW1,db1 = affine_relu_backward(dx2,cache1)
+    #Regularize
+    dW1 += self.reg*W1
+    dW2 += self.reg*W2
+    #Set Dict
+    grads["W1"] = dW1
+    grads["W2"] = dW2
+    grads["b1"] = db1
+    grads["b2"] = db2
 
     return loss, grads
 
